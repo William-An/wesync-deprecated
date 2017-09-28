@@ -13,7 +13,7 @@ def download_files(msg):
     # open(msg.fileName,'wb').write(file_res.content)
     res = requests.post(integromatHook,
                         data={"filename":msg.fileName,"data":base64.encodebytes(file_res.content).decode()})
-    print(res)
+    itchat.send("Tried to upload: %s; Status: %s; Download_link: %s" % (msg.fileName, res.status_code, res.text if res.status_code==200 else ''), toUserName='filehelper')
 
-itchat.auto_login(enableCmdQR=False,hotReload=True)
+itchat.auto_login(enableCmdQR=True,hotReload=True)
 itchat.run(True)
